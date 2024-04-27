@@ -1,0 +1,108 @@
+<html>
+<head>
+<title>plot.cpp</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #b3ae60;}
+.s1 { color: #bcbec4;}
+.s2 { color: #6aab73;}
+.s3 { color: #cf8e6d;}
+.s4 { color: #bcbec4;}
+.s5 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+plot.cpp</font>
+</center></td></tr></table>
+<pre><span class="s0">#include </span><span class="s2">&lt;stdio.h&gt;</span>
+<span class="s0">#include </span><span class="s2">&lt;string.h&gt;</span>
+<span class="s0">#include </span><span class="s2">&lt;iostream&gt;</span>
+<span class="s3">using namespace </span><span class="s1">std</span><span class="s4">;</span>
+
+<span class="s3">struct </span><span class="s1">Node </span><span class="s4">{</span>
+    <span class="s3">int </span><span class="s1">data</span><span class="s4">;</span>
+    <span class="s3">struct </span><span class="s1">Node </span><span class="s4">*</span><span class="s1">next</span><span class="s4">;</span>
+<span class="s4">};</span>
+
+<span class="s3">struct </span><span class="s1">Node </span><span class="s4">*</span><span class="s1">head </span><span class="s4">= </span><span class="s3">nullptr</span><span class="s4">;</span>
+
+<span class="s3">void </span><span class="s1">insert</span><span class="s4">(</span><span class="s3">int </span><span class="s1">data</span><span class="s4">) {</span>
+
+    <span class="s3">struct </span><span class="s1">Node</span><span class="s4">* </span><span class="s1">new_node </span><span class="s4">= </span><span class="s3">new </span><span class="s1">Node</span><span class="s4">;</span>
+    <span class="s1">new_node</span><span class="s4">-&gt;</span><span class="s1">data </span><span class="s4">= </span><span class="s1">data</span><span class="s4">;</span>
+    <span class="s1">new_node</span><span class="s4">-&gt;</span><span class="s1">next </span><span class="s4">= </span><span class="s1">head</span><span class="s4">;</span>
+    <span class="s1">head </span><span class="s4">= </span><span class="s1">new_node</span><span class="s4">;</span>
+<span class="s4">}</span>
+<span class="s3">void </span><span class="s1">display</span><span class="s4">() {</span>
+    <span class="s3">struct </span><span class="s1">Node</span><span class="s4">* </span><span class="s1">ptr</span><span class="s4">;</span>
+    <span class="s1">ptr </span><span class="s4">= </span><span class="s1">head</span><span class="s4">;</span>
+    <span class="s3">while </span><span class="s4">(</span><span class="s1">ptr </span><span class="s4">!= </span><span class="s3">nullptr</span><span class="s4">) {</span>
+        <span class="s1">cout </span><span class="s4">&lt;&lt; </span><span class="s1">ptr</span><span class="s4">-&gt;</span><span class="s1">data </span><span class="s4">&lt;&lt; </span><span class="s2">&quot; &quot;</span><span class="s4">;</span>
+        <span class="s1">ptr </span><span class="s4">= </span><span class="s1">ptr</span><span class="s4">-&gt;</span><span class="s1">next</span><span class="s4">;</span>
+    <span class="s4">}</span>
+    <span class="s1">cout </span><span class="s4">&lt;&lt; </span><span class="s2">&quot;</span><span class="s3">\n</span><span class="s2">&quot;</span><span class="s4">;</span>
+<span class="s4">}</span>
+
+<span class="s3">void </span><span class="s1">search </span><span class="s4">(</span><span class="s3">int </span><span class="s1">key</span><span class="s4">) {</span>
+    <span class="s3">int </span><span class="s1">position </span><span class="s4">=</span><span class="s5">1</span><span class="s4">;</span>
+    <span class="s3">bool </span><span class="s1">found </span><span class="s4">= </span><span class="s3">false</span><span class="s4">;</span>
+    <span class="s3">struct </span><span class="s1">Node</span><span class="s4">* </span><span class="s1">ptr</span><span class="s4">;</span>
+    <span class="s1">ptr </span><span class="s4">= </span><span class="s1">head</span><span class="s4">;</span>
+    <span class="s3">while </span><span class="s4">(</span><span class="s3">true</span><span class="s4">) {</span>
+        <span class="s3">if </span><span class="s4">(</span><span class="s1">ptr </span><span class="s4">== </span><span class="s3">nullptr</span><span class="s4">)  {</span>
+            <span class="s1">cout </span><span class="s4">&lt;&lt; </span><span class="s2">&quot;Not Found&quot;</span><span class="s4">;</span>
+            <span class="s3">return</span><span class="s4">;</span>
+        <span class="s4">}</span>
+        <span class="s3">if </span><span class="s4">(</span><span class="s1">ptr</span><span class="s4">-&gt;</span><span class="s1">data </span><span class="s4">== </span><span class="s1">key</span><span class="s4">) {</span>
+            <span class="s1">cout </span><span class="s4">&lt;&lt; </span><span class="s1">position</span><span class="s4">;</span>
+            <span class="s3">return</span><span class="s4">;</span>
+        <span class="s4">}</span>
+        <span class="s3">else </span><span class="s4">{</span>
+            <span class="s1">ptr </span><span class="s4">= </span><span class="s1">ptr</span><span class="s4">-&gt;</span><span class="s1">next</span><span class="s4">;</span>
+            <span class="s1">position</span><span class="s4">+=</span><span class="s5">1</span><span class="s4">;</span>
+        <span class="s4">}</span>
+    <span class="s4">}</span>
+<span class="s4">}</span>
+<span class="s3">void </span><span class="s1">insertPos</span><span class="s4">(</span><span class="s3">int </span><span class="s1">key</span><span class="s4">, </span><span class="s3">int </span><span class="s1">pos</span><span class="s4">) {</span>
+
+
+    <span class="s3">struct </span><span class="s1">Node</span><span class="s4">* </span><span class="s1">new_node</span><span class="s4">;</span>
+    <span class="s1">new_node</span><span class="s4">-&gt;</span><span class="s1">data </span><span class="s4">= </span><span class="s1">key</span><span class="s4">;</span>
+
+    <span class="s3">if </span><span class="s4">(</span><span class="s1">pos </span><span class="s4">== </span><span class="s5">1</span><span class="s4">) {</span>
+        <span class="s1">new_node</span><span class="s4">-&gt;</span><span class="s1">next </span><span class="s4">= </span><span class="s1">head</span><span class="s4">;</span>
+        <span class="s1">head </span><span class="s4">= </span><span class="s1">new_node</span><span class="s4">;</span>
+        <span class="s3">return</span><span class="s4">;</span>
+    <span class="s4">}</span>
+
+    <span class="s3">int </span><span class="s1">curr_position </span><span class="s4">=</span><span class="s5">1</span><span class="s4">;</span>
+    <span class="s3">struct </span><span class="s1">Node</span><span class="s4">* </span><span class="s1">prev</span><span class="s4">;</span>
+    <span class="s3">struct </span><span class="s1">Node</span><span class="s4">* </span><span class="s1">ptr</span><span class="s4">;</span>
+    <span class="s1">prev </span><span class="s4">= </span><span class="s3">nullptr</span><span class="s4">;</span>
+    <span class="s1">ptr </span><span class="s4">= </span><span class="s1">head</span><span class="s4">;</span>
+    <span class="s3">while </span><span class="s4">(</span><span class="s1">curr_position</span><span class="s4">&lt;</span><span class="s1">pos </span><span class="s4">&amp;&amp; </span><span class="s1">ptr</span><span class="s4">!= </span><span class="s3">nullptr</span><span class="s4">) {</span>
+        <span class="s1">prev </span><span class="s4">= </span><span class="s1">ptr</span><span class="s4">;</span>
+        <span class="s1">ptr </span><span class="s4">= </span><span class="s1">ptr </span><span class="s4">-&gt;</span><span class="s1">next</span><span class="s4">;</span>
+        <span class="s1">curr_position</span><span class="s4">++;</span>
+
+    <span class="s4">}</span>
+    <span class="s1">new_node</span><span class="s4">-&gt;</span><span class="s1">next </span><span class="s4">= </span><span class="s1">ptr</span><span class="s4">;</span>
+    <span class="s1">prev</span><span class="s4">-&gt;</span><span class="s1">next </span><span class="s4">= </span><span class="s1">new_node</span><span class="s4">;</span>
+<span class="s4">}</span>
+
+<span class="s3">int </span><span class="s1">main</span><span class="s4">() {</span>
+    <span class="s1">insert</span><span class="s4">(</span><span class="s5">5</span><span class="s4">);</span>
+    <span class="s1">insert</span><span class="s4">(</span><span class="s5">7</span><span class="s4">);</span>
+    <span class="s1">insert</span><span class="s4">(</span><span class="s5">2</span><span class="s4">);</span>
+    <span class="s1">insert</span><span class="s4">(</span><span class="s5">1</span><span class="s4">);</span>
+    <span class="s1">insert</span><span class="s4">(</span><span class="s5">0</span><span class="s4">);</span>
+    <span class="s1">display</span><span class="s4">();</span>
+    <span class="s1">insertPos</span><span class="s4">(</span><span class="s5">3</span><span class="s4">,</span><span class="s5">1</span><span class="s4">);</span>
+    <span class="s1">display</span><span class="s4">();</span>
+<span class="s4">}</span>
+</pre>
+</body>
+</html>
