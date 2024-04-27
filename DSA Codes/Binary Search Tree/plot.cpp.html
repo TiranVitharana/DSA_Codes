@@ -1,111 +1,88 @@
-<html>
-<head>
-<title>plot.cpp</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<style type="text/css">
-.s0 { color: #b3ae60;}
-.s1 { color: #bcbec4;}
-.s2 { color: #6aab73;}
-.s3 { color: #cf8e6d;}
-.s4 { color: #bcbec4;}
-.s5 { color: #7a7e85;}
-.s6 { color: #2aacb8;}
-</style>
-</head>
-<body bgcolor="#1e1f22">
-<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
-<tr><td><center>
-<font face="Arial, Helvetica" color="#000000">
-plot.cpp</font>
-</center></td></tr></table>
-<pre><span class="s0">#include </span><span class="s2">&lt;iostream&gt;</span>
-<span class="s3">using namespace </span><span class="s1">std</span><span class="s4">;</span>
+#include <iostream>
+using namespace std;
 
-<span class="s3">struct </span><span class="s1">node </span><span class="s4">{</span>
-    <span class="s3">int </span><span class="s1">key</span><span class="s4">;</span>
-    <span class="s3">struct </span><span class="s1">node </span><span class="s4">*</span><span class="s1">left</span><span class="s4">, *</span><span class="s1">right</span><span class="s4">;</span>
-<span class="s4">};</span>
+struct node {
+    int key;
+    struct node *left, *right;
+};
 
-<span class="s5">// Inorder traversal</span>
-<span class="s3">void </span><span class="s1">traverseInOrder</span><span class="s4">(</span><span class="s3">struct </span><span class="s1">node </span><span class="s4">*</span><span class="s1">root</span><span class="s4">) {</span>
-    <span class="s3">if </span><span class="s4">(</span><span class="s1">root </span><span class="s4">!= </span><span class="s3">nullptr</span><span class="s4">) {</span>
-        <span class="s1">traverseInOrder</span><span class="s4">(</span><span class="s1">root</span><span class="s4">-&gt;</span><span class="s1">left</span><span class="s4">);</span>
-        <span class="s1">cout </span><span class="s4">&lt;&lt; </span><span class="s1">root</span><span class="s4">-&gt;</span><span class="s1">key </span><span class="s4">&lt;&lt; </span><span class="s2">&quot; &quot;</span><span class="s4">;</span>
-        <span class="s1">traverseInOrder</span><span class="s4">(</span><span class="s1">root</span><span class="s4">-&gt;</span><span class="s1">right</span><span class="s4">);</span>
-    <span class="s4">}</span>
-<span class="s4">}</span>
+// Inorder traversal
+void traverseInOrder(struct node *root) {
+    if (root != nullptr) {
+        traverseInOrder(root->left);
+        cout << root->key << " ";
+        traverseInOrder(root->right);
+    }
+}
 
-<span class="s5">// Insert a node</span>
-<span class="s3">struct </span><span class="s1">node </span><span class="s4">*</span><span class="s1">insertNode</span><span class="s4">(</span><span class="s3">struct </span><span class="s1">node </span><span class="s4">*</span><span class="s1">root</span><span class="s4">, </span><span class="s3">int </span><span class="s1">key</span><span class="s4">) {</span>
-    <span class="s3">if </span><span class="s4">(</span><span class="s1">root </span><span class="s4">== </span><span class="s3">nullptr</span><span class="s4">) {</span>
-        <span class="s3">struct </span><span class="s1">node </span><span class="s4">*</span><span class="s1">new_node </span><span class="s4">= </span><span class="s3">new struct </span><span class="s1">node</span><span class="s4">();</span>
-        <span class="s1">new_node</span><span class="s4">-&gt;</span><span class="s1">key </span><span class="s4">= </span><span class="s1">key</span><span class="s4">;</span>
-        <span class="s1">new_node</span><span class="s4">-&gt;</span><span class="s1">left </span><span class="s4">= </span><span class="s3">nullptr</span><span class="s4">;</span>
-        <span class="s1">new_node</span><span class="s4">-&gt;</span><span class="s1">right </span><span class="s4">= </span><span class="s3">nullptr</span><span class="s4">;</span>
-        <span class="s3">return </span><span class="s1">new_node</span><span class="s4">;</span>
-    <span class="s4">}</span>
+// Insert a node
+struct node *insertNode(struct node *root, int key) {
+    if (root == nullptr) {
+        struct node *new_node = new struct node();
+        new_node->key = key;
+        new_node->left = nullptr;
+        new_node->right = nullptr;
+        return new_node;
+    }
 
-    <span class="s3">if </span><span class="s4">(</span><span class="s1">key </span><span class="s4">&lt; </span><span class="s1">root</span><span class="s4">-&gt;</span><span class="s1">key</span><span class="s4">) {</span>
-        <span class="s1">root</span><span class="s4">-&gt;</span><span class="s1">left </span><span class="s4">= </span><span class="s1">insertNode</span><span class="s4">(</span><span class="s1">root</span><span class="s4">-&gt;</span><span class="s1">left</span><span class="s4">, </span><span class="s1">key</span><span class="s4">);</span>
-    <span class="s4">} </span><span class="s3">else if </span><span class="s4">(</span><span class="s1">key </span><span class="s4">&gt; </span><span class="s1">root</span><span class="s4">-&gt;</span><span class="s1">key</span><span class="s4">) {</span>
-        <span class="s1">root</span><span class="s4">-&gt;</span><span class="s1">right </span><span class="s4">= </span><span class="s1">insertNode</span><span class="s4">(</span><span class="s1">root</span><span class="s4">-&gt;</span><span class="s1">right</span><span class="s4">, </span><span class="s1">key</span><span class="s4">);</span>
-    <span class="s4">}</span>
-    <span class="s3">return </span><span class="s1">root</span><span class="s4">;</span>
-<span class="s4">}</span>
+    if (key < root->key) {
+        root->left = insertNode(root->left, key);
+    } else if (key > root->key) {
+        root->right = insertNode(root->right, key);
+    }
+    return root;
+}
 
-<span class="s5">// Utility function to find the node with the minimum key value</span>
-<span class="s3">struct </span><span class="s1">node </span><span class="s4">*</span><span class="s1">findMin</span><span class="s4">(</span><span class="s3">struct </span><span class="s1">node </span><span class="s4">*</span><span class="s1">root</span><span class="s4">) {</span>
-    <span class="s3">if </span><span class="s4">(</span><span class="s1">root</span><span class="s4">-&gt;</span><span class="s1">left </span><span class="s4">== </span><span class="s3">nullptr</span><span class="s4">) {</span>
-        <span class="s3">return </span><span class="s1">root</span><span class="s4">;</span>
-    <span class="s4">} </span><span class="s3">else </span><span class="s4">{</span>
-        <span class="s3">return </span><span class="s1">findMin</span><span class="s4">(</span><span class="s1">root</span><span class="s4">-&gt;</span><span class="s1">left</span><span class="s4">);</span>
-    <span class="s4">}</span>
-<span class="s4">}</span>
+// Utility function to find the node with the minimum key value
+struct node *findMin(struct node *root) {
+    if (root->left == nullptr) {
+        return root;
+    } else {
+        return findMin(root->left);
+    }
+}
 
-<span class="s5">// Deleting a node</span>
-<span class="s3">struct </span><span class="s1">node </span><span class="s4">*</span><span class="s1">deleteNode</span><span class="s4">(</span><span class="s3">struct </span><span class="s1">node </span><span class="s4">*</span><span class="s1">root</span><span class="s4">, </span><span class="s3">int </span><span class="s1">key</span><span class="s4">) {</span>
-    <span class="s3">if </span><span class="s4">(</span><span class="s1">root </span><span class="s4">== </span><span class="s3">nullptr</span><span class="s4">) {</span>
-        <span class="s3">return </span><span class="s1">root</span><span class="s4">;</span>
-    <span class="s4">} </span><span class="s3">else if </span><span class="s4">(</span><span class="s1">key </span><span class="s4">&lt; </span><span class="s1">root</span><span class="s4">-&gt;</span><span class="s1">key</span><span class="s4">) {</span>
-        <span class="s1">root</span><span class="s4">-&gt;</span><span class="s1">left </span><span class="s4">= </span><span class="s1">deleteNode</span><span class="s4">(</span><span class="s1">root</span><span class="s4">-&gt;</span><span class="s1">left</span><span class="s4">, </span><span class="s1">key</span><span class="s4">);</span>
-    <span class="s4">} </span><span class="s3">else if </span><span class="s4">(</span><span class="s1">key </span><span class="s4">&gt; </span><span class="s1">root</span><span class="s4">-&gt;</span><span class="s1">key</span><span class="s4">) {</span>
-        <span class="s1">root</span><span class="s4">-&gt;</span><span class="s1">right </span><span class="s4">= </span><span class="s1">deleteNode</span><span class="s4">(</span><span class="s1">root</span><span class="s4">-&gt;</span><span class="s1">right</span><span class="s4">, </span><span class="s1">key</span><span class="s4">);</span>
-    <span class="s4">} </span><span class="s3">else </span><span class="s4">{ </span><span class="s5">// Node found, perform deletion</span>
-        <span class="s5">// Case 1: Node has no children or only one child</span>
-        <span class="s3">if </span><span class="s4">(</span><span class="s1">root</span><span class="s4">-&gt;</span><span class="s1">left </span><span class="s4">== </span><span class="s3">nullptr</span><span class="s4">) {</span>
-            <span class="s3">struct </span><span class="s1">node </span><span class="s4">*</span><span class="s1">temp </span><span class="s4">= </span><span class="s1">root</span><span class="s4">-&gt;</span><span class="s1">right</span><span class="s4">;</span>
-            <span class="s3">delete </span><span class="s1">root</span><span class="s4">;</span>
-            <span class="s3">return </span><span class="s1">temp</span><span class="s4">;</span>
-        <span class="s4">} </span><span class="s3">else if </span><span class="s4">(</span><span class="s1">root</span><span class="s4">-&gt;</span><span class="s1">right </span><span class="s4">== </span><span class="s3">nullptr</span><span class="s4">) {</span>
-            <span class="s3">struct </span><span class="s1">node </span><span class="s4">*</span><span class="s1">temp </span><span class="s4">= </span><span class="s1">root</span><span class="s4">-&gt;</span><span class="s1">left</span><span class="s4">;</span>
-            <span class="s3">delete </span><span class="s1">root</span><span class="s4">;</span>
-            <span class="s3">return </span><span class="s1">temp</span><span class="s4">;</span>
-        <span class="s4">}</span>
+// Deleting a node
+struct node *deleteNode(struct node *root, int key) {
+    if (root == nullptr) {
+        return root;
+    } else if (key < root->key) {
+        root->left = deleteNode(root->left, key);
+    } else if (key > root->key) {
+        root->right = deleteNode(root->right, key);
+    } else { // Node found, perform deletion
+        // Case 1: Node has no children or only one child
+        if (root->left == nullptr) {
+            struct node *temp = root->right;
+            delete root;
+            return temp;
+        } else if (root->right == nullptr) {
+            struct node *temp = root->left;
+            delete root;
+            return temp;
+        }
 
-        <span class="s5">// Case 2: Node has two children</span>
-        <span class="s3">struct </span><span class="s1">node </span><span class="s4">*</span><span class="s1">temp </span><span class="s4">= </span><span class="s1">findMin</span><span class="s4">(</span><span class="s1">root</span><span class="s4">-&gt;</span><span class="s1">right</span><span class="s4">);</span>
-        <span class="s1">root</span><span class="s4">-&gt;</span><span class="s1">key </span><span class="s4">= </span><span class="s1">temp</span><span class="s4">-&gt;</span><span class="s1">key</span><span class="s4">;</span>
-        <span class="s1">root</span><span class="s4">-&gt;</span><span class="s1">right </span><span class="s4">= </span><span class="s1">deleteNode</span><span class="s4">(</span><span class="s1">root</span><span class="s4">-&gt;</span><span class="s1">right</span><span class="s4">, </span><span class="s1">temp</span><span class="s4">-&gt;</span><span class="s1">key</span><span class="s4">);</span>
-    <span class="s4">}</span>
-    <span class="s3">return </span><span class="s1">root</span><span class="s4">;</span>
-<span class="s4">}</span>
+        // Case 2: Node has two children
+        struct node *temp = findMin(root->right);
+        root->key = temp->key;
+        root->right = deleteNode(root->right, temp->key);
+    }
+    return root;
+}
 
-<span class="s5">// Driver code</span>
-<span class="s3">int </span><span class="s1">main</span><span class="s4">() {</span>
-    <span class="s3">struct </span><span class="s1">node </span><span class="s4">*</span><span class="s1">root </span><span class="s4">= </span><span class="s3">nullptr</span><span class="s4">;</span>
-    <span class="s1">root </span><span class="s4">= </span><span class="s1">insertNode</span><span class="s4">(</span><span class="s1">root</span><span class="s4">, </span><span class="s6">14</span><span class="s4">);</span>
-    <span class="s1">root </span><span class="s4">= </span><span class="s1">insertNode</span><span class="s4">(</span><span class="s1">root</span><span class="s4">, </span><span class="s6">13</span><span class="s4">);</span>
-    <span class="s1">root </span><span class="s4">= </span><span class="s1">insertNode</span><span class="s4">(</span><span class="s1">root</span><span class="s4">, </span><span class="s6">11</span><span class="s4">);</span>
-    <span class="s1">root </span><span class="s4">= </span><span class="s1">insertNode</span><span class="s4">(</span><span class="s1">root</span><span class="s4">, </span><span class="s6">17</span><span class="s4">);</span>
-    <span class="s1">root </span><span class="s4">= </span><span class="s1">insertNode</span><span class="s4">(</span><span class="s1">root</span><span class="s4">, </span><span class="s6">8</span><span class="s4">);</span>
-    <span class="s1">root </span><span class="s4">= </span><span class="s1">deleteNode</span><span class="s4">(</span><span class="s1">root</span><span class="s4">, </span><span class="s6">14</span><span class="s4">);</span>
-    <span class="s1">root </span><span class="s4">= </span><span class="s1">deleteNode</span><span class="s4">(</span><span class="s1">root</span><span class="s4">, </span><span class="s6">11</span><span class="s4">);</span>
+// Driver code
+int main() {
+    struct node *root = nullptr;
+    root = insertNode(root, 14);
+    root = insertNode(root, 13);
+    root = insertNode(root, 11);
+    root = insertNode(root, 17);
+    root = insertNode(root, 8);
+    root = deleteNode(root, 14);
+    root = deleteNode(root, 11);
 
 
-    <span class="s1">traverseInOrder</span><span class="s4">(</span><span class="s1">root</span><span class="s4">);</span>
+    traverseInOrder(root);
 
-    <span class="s3">return </span><span class="s6">0</span><span class="s4">;</span>
-<span class="s4">}</span>
-</pre>
-</body>
-</html>
+    return 0;
+}
